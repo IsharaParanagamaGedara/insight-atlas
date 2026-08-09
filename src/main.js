@@ -1,1 +1,3 @@
-console.log("Insight Atlas project setup complete.");
+import "./styles/main.scss";
+
+console.log("Insight Atlas foundation loaded successfully.");

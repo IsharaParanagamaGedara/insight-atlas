@@ -1,0 +1,148 @@
+@use "variables" as *;
+
+.site-header {
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: $header-height;
+  padding: 0 $container-padding;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand__mark {
+  width: 46px;
+  height: 46px;
+  border: 1px solid $color-border;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: $shadow-soft;
+  font-family: $font-mono;
+  font-size: 14px;
+  font-weight: 600;
+  backdrop-filter: blur(14px);
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand__name {
+  font-family: $font-heading;
+  font-size: 17px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.brand__tagline {
+  color: $color-muted;
+  font-family: $font-mono;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.site-nav__link {
+  position: relative;
+  padding: 8px 0;
+  color: $color-muted;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-text;
+  }
+}
+
+.site-nav__link--active {
+  color: $color-text;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    border-radius: $radius-pill;
+    background: var(--active-accent);
+    content: "";
+  }
+}
+
+.header-action {
+  width: 44px;
+  height: 44px;
+  border: 1px solid $color-border;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  transition:
+    transform $transition-fast,
+    background-color $transition-fast,
+    border-color $transition-fast;
+
+  svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  &:hover {
+    border-color: $color-border-strong;
+    background: rgba(255, 255, 255, 0.12);
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .site-header {
+    min-height: 82px;
+    padding: 0 28px;
+  }
+
+  .site-nav {
+    gap: 20px;
+  }
+
+  .site-nav__link {
+    display: none;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .site-header {
+    padding: 0 20px;
+  }
+
+  .brand__tagline {
+    display: none;
+  }
+
+  .brand__mark {
+    width: 42px;
+    height: 42px;
+  }
+}
