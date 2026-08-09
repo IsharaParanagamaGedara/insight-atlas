@@ -2,12 +2,158 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>insight-atlas</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+      name="description"
+      content="Insight Atlas is an interactive platform for exploring global data stories."
+    />
+
+    <title>Insight Atlas | Interactive Data Stories</title>
   </head>
+
   <body>
-    <div id="app"></div>
+    <div class="app">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="Insight Atlas home">
+          <span class="brand__mark" aria-hidden="true">
+            IA
+          </span>
+
+          <span class="brand__text">
+            <strong class="brand__name">Insight Atlas</strong>
+            <span class="brand__tagline">Stories in data</span>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a
+            class="site-nav__link site-nav__link--active"
+            href="#stories"
+          >
+            Stories
+          </a>
+
+          <a class="site-nav__link" href="#about">
+            About
+          </a>
+
+          <a class="site-nav__link" href="#sources">
+            Sources
+          </a>
+
+          <button
+            class="header-action"
+            type="button"
+            aria-label="Search data stories"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+
+              <path
+                d="m21 21-4.35-4.35"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" id="stories">
+          <div class="hero__background" aria-hidden="true">
+            <div class="hero__image"></div>
+            <div class="hero__overlay"></div>
+            <div class="hero__grid"></div>
+          </div>
+
+          <div class="hero__content">
+            <div class="hero__meta">
+              <span class="hero__category">Environment</span>
+              <span class="hero__separator"></span>
+              <span class="hero__number">Story 01</span>
+            </div>
+
+            <p class="hero__eyebrow">
+              Powering tomorrow
+            </p>
+
+            <h1 class="hero__title">
+              The Future of
+              <span>Clean Energy</span>
+            </h1>
+
+            <p class="hero__description">
+              Explore how renewable technologies, intelligent
+              infrastructure, and data-driven decisions are reshaping
+              the way communities produce and consume energy.
+            </p>
+
+            <div class="hero__statistic">
+              <strong class="hero__statistic-value">
+                42%
+              </strong>
+
+              <span class="hero__statistic-description">
+                Illustrative renewable energy contribution used in
+                this interactive demonstration.
+              </span>
+            </div>
+
+            <div class="hero__actions">
+              <button
+                class="button button--primary"
+                type="button"
+              >
+                Explore the Story
+
+                <span aria-hidden="true">→</span>
+              </button>
+
+              <button
+                class="button button--secondary"
+                type="button"
+              >
+                View Sources
+              </button>
+            </div>
+          </div>
+
+          <div class="hero__side-label" aria-hidden="true">
+            <span>Global Data Stories</span>
+          </div>
+
+          <div class="hero__scroll-hint">
+            <span class="hero__scroll-line"></span>
+            <span>Explore</span>
+          </div>
+        </section>
+
+        <section class="placeholder-section" id="about">
+          <h2>About Insight Atlas</h2>
+        </section>
+
+        <section class="placeholder-section" id="sources">
+          <h2>Data Sources</h2>
+        </section>
+      </main>
+    </div>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
