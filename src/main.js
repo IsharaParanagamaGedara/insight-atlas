@@ -2,9 +2,23 @@ import "./styles/main.scss";
 
 import { stories } from "./data.js";
 
+import {
+  animateProgressBar,
+  animateQueueSelection,
+  animateStoryTransition,
+  playPageReveal,
+  setInitialAnimationState,
+} from "./animations.js";
+
 let currentStoryIndex = 0;
+let isAnimating = false;
+let isAutoPlaying = true;
+let autoplayTimer = null;
+
+const AUTOPLAY_DELAY = 7000;
 
 const elements = {
+  hero: document.querySelector(".hero"),
   heroImage: document.querySelector(".hero__image"),
   category: document.querySelector(".hero__category"),
   storyNumber: document.querySelector(".hero__number"),
@@ -21,7 +35,9 @@ const elements = {
     ".hero__statistic-description",
   ),
 
-  storyQueue: document.querySelector(".story-queue__list"),
+  storyQueue: document.querySelector(
+    ".story-queue__list",
+  ),
 
   storyQueueCount: document.querySelector(
     ".story-queue__count",
@@ -33,6 +49,10 @@ const elements = {
 
   nextButton: document.querySelector(
     ".story-control--next",
+  ),
+
+  autoplayButton: document.querySelector(
+    ".story-control--autoplay",
   ),
 
   progressFraction: document.querySelector(
@@ -63,6 +83,20 @@ function setActiveAccent(accent) {
   );
 }
 
+function setControlsDisabled(disabled) {
+  elements.previousButton.disabled = disabled;
+  elements.nextButton.disabled = disabled;
+
+  document
+    .querySelectorAll(".queue-card")
+    .forEach((card) => {
+      card.setAttribute(
+        "aria-disabled",
+        String(disabled),
+      );
+    });
+}
+
 function updateProgress() {
   const currentPosition = currentStoryIndex + 1;
   const progressPercentage =
@@ -71,9 +105,6 @@ function updateProgress() {
   elements.progressFraction.textContent =
     `${formatNumber(currentPosition)} / ` +
     `${formatNumber(stories.length)}`;
-
-  elements.progressBar.style.width =
-    `${progressPercentage}%`;
 
   elements.progressTrack.setAttribute(
     "aria-valuenow",
@@ -84,6 +115,8 @@ function updateProgress() {
     "aria-valuemax",
     String(stories.length),
   );
+
+  animateProgressBar(progressPercentage);
 }
 
 function getUpcomingStories() {
@@ -108,7 +141,8 @@ function getUpcomingStories() {
 }
 
 function renderStoryQueue() {
-  const upcomingStories = getUpcomingStories().slice(0, 3);
+  const upcomingStories =
+    getUpcomingStories().slice(0, 3);
 
   elements.storyQueueCount.textContent =
     `${formatNumber(currentStoryIndex + 1)} / ` +
@@ -123,6 +157,7 @@ function renderStoryQueue() {
           tabindex="0"
           role="button"
           aria-label="Open ${story.titleLine1} ${story.titleLine2}"
+          aria-disabled="false"
         >
           <div
             class="queue-card__image"
@@ -138,7 +173,9 @@ function renderStoryQueue() {
           <div class="queue-card__content">
             <div class="queue-card__meta">
               <span>
-                ${formatNumber(story.originalIndex + 1)}
+                ${formatNumber(
+                  story.originalIndex + 1,
+                )}
               </span>
 
               <span>${story.category}</span>
@@ -199,18 +236,70 @@ function renderStory(index) {
   updateProgress();
 }
 
+async function changeStory(
+  targetIndex,
+  direction = 1,
+) {
+  if (isAnimating) {
+    return;
+  }
+
+  const normalizedTarget =
+    normalizeStoryIndex(targetIndex);
+
+  if (normalizedTarget === currentStoryIndex) {
+    return;
+  }
+
+  isAnimating = true;
+  setControlsDisabled(true);
+  stopAutoplayTimer();
+
+  try {
+    await animateStoryTransition({
+      direction,
+      updateStory: () => {
+        renderStory(normalizedTarget);
+      },
+    });
+  } finally {
+    isAnimating = false;
+    setControlsDisabled(false);
+
+    if (isAutoPlaying) {
+      startAutoplayTimer();
+    }
+  }
+}
+
 function showNextStory() {
-  renderStory(currentStoryIndex + 1);
+  return changeStory(currentStoryIndex + 1, 1);
 }
 
 function showPreviousStory() {
-  renderStory(currentStoryIndex - 1);
+  return changeStory(currentStoryIndex - 1, -1);
+}
+
+function determineQueueDirection(selectedIndex) {
+  const forwardDistance =
+    normalizeStoryIndex(
+      selectedIndex - currentStoryIndex,
+    );
+
+  const backwardDistance =
+    normalizeStoryIndex(
+      currentStoryIndex - selectedIndex,
+    );
+
+  return forwardDistance <= backwardDistance ? 1 : -1;
 }
 
 function openStoryFromQueue(event) {
-  const queueCard = event.target.closest(".queue-card");
+  const queueCard = event.target.closest(
+    ".queue-card",
+  );
 
-  if (!queueCard) {
+  if (!queueCard || isAnimating) {
     return;
   }
 
@@ -222,7 +311,12 @@ function openStoryFromQueue(event) {
     return;
   }
 
-  renderStory(selectedIndex);
+  animateQueueSelection(queueCard);
+
+  const direction =
+    determineQueueDirection(selectedIndex);
+
+  changeStory(selectedIndex, direction);
 }
 
 function handleQueueKeyboard(event) {
@@ -233,9 +327,11 @@ function handleQueueKeyboard(event) {
     return;
   }
 
-  const queueCard = event.target.closest(".queue-card");
+  const queueCard = event.target.closest(
+    ".queue-card",
+  );
 
-  if (!queueCard) {
+  if (!queueCard || isAnimating) {
     return;
   }
 
@@ -245,9 +341,14 @@ function handleQueueKeyboard(event) {
     queueCard.dataset.storyIndex,
   );
 
-  if (Number.isInteger(selectedIndex)) {
-    renderStory(selectedIndex);
+  if (!Number.isInteger(selectedIndex)) {
+    return;
   }
+
+  const direction =
+    determineQueueDirection(selectedIndex);
+
+  changeStory(selectedIndex, direction);
 }
 
 function handleDocumentKeyboard(event) {
@@ -260,16 +361,100 @@ function handleDocumentKeyboard(event) {
     activeTagName === "textarea" ||
     activeElement?.isContentEditable;
 
-  if (isTyping) {
+  if (isTyping || isAnimating) {
     return;
   }
 
   if (event.key === "ArrowRight") {
+    event.preventDefault();
     showNextStory();
   }
 
   if (event.key === "ArrowLeft") {
+    event.preventDefault();
     showPreviousStory();
+  }
+
+  if (event.key === " ") {
+    const isButtonFocused =
+      activeTagName === "button";
+
+    if (!isButtonFocused) {
+      event.preventDefault();
+      toggleAutoplay();
+    }
+  }
+}
+
+function updateAutoplayButton() {
+  elements.autoplayButton.setAttribute(
+    "aria-pressed",
+    String(isAutoPlaying),
+  );
+
+  elements.autoplayButton.setAttribute(
+    "aria-label",
+    isAutoPlaying
+      ? "Pause automatic story playback"
+      : "Start automatic story playback",
+  );
+
+  elements.autoplayButton.classList.toggle(
+    "is-paused",
+    !isAutoPlaying,
+  );
+}
+
+function stopAutoplayTimer() {
+  if (autoplayTimer !== null) {
+    window.clearTimeout(autoplayTimer);
+    autoplayTimer = null;
+  }
+}
+
+function startAutoplayTimer() {
+  stopAutoplayTimer();
+
+  if (
+    !isAutoPlaying ||
+    document.hidden ||
+    isAnimating
+  ) {
+    return;
+  }
+
+  autoplayTimer = window.setTimeout(() => {
+    showNextStory();
+  }, AUTOPLAY_DELAY);
+}
+
+function pauseAutoplayTemporarily() {
+  stopAutoplayTimer();
+}
+
+function resumeAutoplay() {
+  if (isAutoPlaying) {
+    startAutoplayTimer();
+  }
+}
+
+function toggleAutoplay() {
+  isAutoPlaying = !isAutoPlaying;
+
+  updateAutoplayButton();
+
+  if (isAutoPlaying) {
+    startAutoplayTimer();
+  } else {
+    stopAutoplayTimer();
+  }
+}
+
+function handleVisibilityChange() {
+  if (document.hidden) {
+    stopAutoplayTimer();
+  } else if (isAutoPlaying) {
+    startAutoplayTimer();
   }
 }
 
@@ -284,6 +469,11 @@ function attachEventListeners() {
     showPreviousStory,
   );
 
+  elements.autoplayButton.addEventListener(
+    "click",
+    toggleAutoplay,
+  );
+
   elements.storyQueue.addEventListener(
     "click",
     openStoryFromQueue,
@@ -294,20 +484,51 @@ function attachEventListeners() {
     handleQueueKeyboard,
   );
 
+  elements.hero.addEventListener(
+    "mouseenter",
+    pauseAutoplayTemporarily,
+  );
+
+  elements.hero.addEventListener(
+    "mouseleave",
+    resumeAutoplay,
+  );
+
+  elements.hero.addEventListener(
+    "focusin",
+    pauseAutoplayTemporarily,
+  );
+
+  elements.hero.addEventListener(
+    "focusout",
+    resumeAutoplay,
+  );
+
   document.addEventListener(
     "keydown",
     handleDocumentKeyboard,
   );
+
+  document.addEventListener(
+    "visibilitychange",
+    handleVisibilityChange,
+  );
 }
 
-function initializeApplication() {
+async function initializeApplication() {
   if (stories.length === 0) {
     console.error("No stories are available.");
     return;
   }
 
-  attachEventListeners();
+  setInitialAnimationState();
   renderStory(currentStoryIndex);
+  updateAutoplayButton();
+  attachEventListeners();
+
+  await playPageReveal();
+
+  startAutoplayTimer();
 }
 
 initializeApplication();
