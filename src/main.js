@@ -15,7 +15,7 @@ let isAnimating = false;
 let isAutoPlaying = true;
 let autoplayTimer = null;
 
-const AUTOPLAY_DELAY = 7000;
+const AUTOPLAY_DELAY = 5000;
 
 const elements = {
   hero: document.querySelector(".hero"),
