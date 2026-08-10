@@ -175,16 +175,18 @@
 
 .hero__side-label {
   position: absolute;
-  z-index: 5;
+  z-index: 8;
   top: 50%;
-  right: 34px;
+  right: 420px;
   color: rgba(255, 255, 255, 0.54);
   font-family: $font-mono;
   font-size: 10px;
   letter-spacing: 0.26em;
+  white-space: nowrap;
   text-transform: uppercase;
   transform: translateY(-50%) rotate(90deg);
   transform-origin: center;
+  pointer-events: none;
 }
 
 .hero__scroll-hint {
@@ -239,6 +241,10 @@
 
   .hero__title {
     font-size: clamp(54px, 7vw, 88px);
+  }
+
+  .hero__side-label {
+    right: 350px;
   }
 }
 
