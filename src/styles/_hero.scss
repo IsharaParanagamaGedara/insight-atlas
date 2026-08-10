@@ -22,15 +22,13 @@
 }
 
 .hero__image {
-  background-image:
-    linear-gradient(
-      rgba(7, 17, 31, 0.08),
-      rgba(7, 17, 31, 0.08)
-    ),
-    url("/images/clean-energy.jpg");
+  background-color: $color-background-soft;
   background-position: center;
   background-size: cover;
   transform: scale(1.04);
+  transition:
+    background-image $transition-slow,
+    transform $transition-slow;
 }
 
 .hero__overlay {
@@ -120,11 +118,19 @@
   font-weight: 600;
   line-height: 0.9;
   letter-spacing: -0.065em;
+}
 
-  span {
-    display: block;
-    color: var(--active-accent);
-  }
+.hero__title-line,
+.hero__title-accent {
+  display: block;
+}
+
+.hero__title-line {
+  color: $color-text;
+}
+
+.hero__title-accent {
+  color: var(--active-accent);
 }
 
 .hero__description {
