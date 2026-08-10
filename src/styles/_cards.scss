@@ -39,6 +39,7 @@
   overflow: hidden;
   box-shadow: $shadow-soft;
   isolation: isolate;
+  cursor: pointer;
   transition:
     transform $transition-medium,
     border-color $transition-medium,
@@ -48,6 +49,11 @@
     border-color: $color-border-strong;
     box-shadow: $shadow-strong;
     transform: translateX(-8px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--active-accent);
+    outline-offset: 4px;
   }
 }
 
