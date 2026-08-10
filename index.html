@@ -19,8 +19,15 @@
   <body>
     <div class="app">
       <header class="site-header">
-        <a class="brand" href="/" aria-label="Insight Atlas home">
-          <span class="brand__mark" aria-hidden="true">
+        <a
+          class="brand"
+          href="/"
+          aria-label="Insight Atlas home"
+        >
+          <span
+            class="brand__mark"
+            aria-hidden="true"
+          >
             IA
           </span>
 
@@ -35,7 +42,10 @@
           </span>
         </a>
 
-        <nav class="site-nav" aria-label="Primary navigation">
+        <nav
+          class="site-nav"
+          aria-label="Primary navigation"
+        >
           <a
             class="site-nav__link site-nav__link--active"
             href="#stories"
@@ -99,6 +109,11 @@
             <div class="hero__overlay"></div>
             <div class="hero__grid"></div>
           </div>
+
+          <div
+            class="story-transition"
+            aria-hidden="true"
+          ></div>
 
           <div class="hero__content">
             <div class="hero__meta">
@@ -172,74 +187,111 @@
           </aside>
 
           <div
-  class="story-controls"
-  aria-label="Story navigation"
->
-  <button
-    class="story-control story-control--previous"
-    type="button"
-    aria-label="Show previous story"
-  >
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M15 18 9 12l6-6"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  </button>
+            class="story-controls"
+            aria-label="Story navigation"
+          >
+            <button
+              class="story-control story-control--previous"
+              type="button"
+              aria-label="Show previous story"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 18 9 12l6-6"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
 
-  <div class="story-progress">
-    <div class="story-progress__information">
-      <span class="story-progress__title">
-        Current Story
-      </span>
+            <div class="story-progress">
+              <div class="story-progress__information">
+                <span class="story-progress__title">
+                  Current Story
+                </span>
 
-      <span class="story-progress__fraction">
-        01 / 06
-      </span>
-    </div>
+                <span class="story-progress__fraction">
+                  01 / 06
+                </span>
+              </div>
 
-    <div
-      class="story-progress__track"
-      role="progressbar"
-      aria-label="Story progress"
-      aria-valuemin="1"
-      aria-valuemax="6"
-      aria-valuenow="1"
-    >
-      <div class="story-progress__bar"></div>
-    </div>
-  </div>
+              <div
+                class="story-progress__track"
+                role="progressbar"
+                aria-label="Story progress"
+                aria-valuemin="1"
+                aria-valuemax="6"
+                aria-valuenow="1"
+              >
+                <div class="story-progress__bar"></div>
+              </div>
+            </div>
 
-  <button
-    class="story-control story-control--next"
-    type="button"
-    aria-label="Show next story"
-  >
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="m9 18 6-6-6-6"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  </button>
-</div>
+            <button
+              class="story-control story-control--next"
+              type="button"
+              aria-label="Show next story"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m9 18 6-6-6-6"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            <button
+              class="story-control story-control--autoplay"
+              type="button"
+              aria-label="Pause automatic story playback"
+              aria-pressed="true"
+            >
+              <svg
+                class="autoplay-icon autoplay-icon--pause"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 5v14M16 5v14"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+
+              <svg
+                class="autoplay-icon autoplay-icon--play"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m8 5 11 7-11 7V5Z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
 
           <div
             class="hero__side-label"
