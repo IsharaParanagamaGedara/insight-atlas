@@ -25,8 +25,13 @@
           </span>
 
           <span class="brand__text">
-            <strong class="brand__name">Insight Atlas</strong>
-            <span class="brand__tagline">Stories in data</span>
+            <strong class="brand__name">
+              Insight Atlas
+            </strong>
+
+            <span class="brand__tagline">
+              Stories in data
+            </span>
           </span>
         </a>
 
@@ -38,11 +43,17 @@
             Stories
           </a>
 
-          <a class="site-nav__link" href="#about">
+          <a
+            class="site-nav__link"
+            href="#about"
+          >
             About
           </a>
 
-          <a class="site-nav__link" href="#sources">
+          <a
+            class="site-nav__link"
+            href="#sources"
+          >
             Sources
           </a>
 
@@ -75,8 +86,15 @@
       </header>
 
       <main>
-        <section class="hero" id="stories">
-          <div class="hero__background" aria-hidden="true">
+        <section
+          class="hero"
+          id="stories"
+          aria-labelledby="hero-title"
+        >
+          <div
+            class="hero__background"
+            aria-hidden="true"
+          >
             <div class="hero__image"></div>
             <div class="hero__overlay"></div>
             <div class="hero__grid"></div>
@@ -84,35 +102,36 @@
 
           <div class="hero__content">
             <div class="hero__meta">
-              <span class="hero__category">Environment</span>
-              <span class="hero__separator"></span>
-              <span class="hero__number">Story 01</span>
+              <span class="hero__category"></span>
+
+              <span
+                class="hero__separator"
+                aria-hidden="true"
+              ></span>
+
+              <span class="hero__number"></span>
             </div>
 
-            <p class="hero__eyebrow">
-              Powering tomorrow
-            </p>
+            <p class="hero__eyebrow"></p>
 
-            <h1 class="hero__title">
-              The Future of
-              <span>Clean Energy</span>
+            <h1
+              class="hero__title"
+              id="hero-title"
+            >
+              <span class="hero__title-line"></span>
+              <span class="hero__title-accent"></span>
             </h1>
 
-            <p class="hero__description">
-              Explore how renewable technologies, intelligent
-              infrastructure, and data-driven decisions are reshaping
-              the way communities produce and consume energy.
-            </p>
+            <p class="hero__description"></p>
 
             <div class="hero__statistic">
-              <strong class="hero__statistic-value">
-                42%
-              </strong>
+              <strong
+                class="hero__statistic-value"
+              ></strong>
 
-              <span class="hero__statistic-description">
-                Illustrative renewable energy contribution used in
-                this interactive demonstration.
-              </span>
+              <span
+                class="hero__statistic-description"
+              ></span>
             </div>
 
             <div class="hero__actions">
@@ -122,7 +141,9 @@
               >
                 Explore the Story
 
-                <span aria-hidden="true">→</span>
+                <span aria-hidden="true">
+                  →
+                </span>
               </button>
 
               <button
@@ -134,26 +155,64 @@
             </div>
           </div>
 
-          <div class="hero__side-label" aria-hidden="true">
+          <aside
+            class="story-queue"
+            aria-label="Upcoming data stories"
+          >
+            <div class="story-queue__header">
+              <span>Up Next</span>
+
+              <span
+                class="story-queue__count"
+                aria-label="Current story position"
+              ></span>
+            </div>
+
+            <div class="story-queue__list"></div>
+          </aside>
+
+          <div
+            class="hero__side-label"
+            aria-hidden="true"
+          >
             <span>Global Data Stories</span>
           </div>
 
-          <div class="hero__scroll-hint">
+          <div
+            class="hero__scroll-hint"
+            aria-hidden="true"
+          >
             <span class="hero__scroll-line"></span>
             <span>Explore</span>
           </div>
         </section>
 
-        <section class="placeholder-section" id="about">
-          <h2>About Insight Atlas</h2>
+        <section
+          class="placeholder-section"
+          id="about"
+          aria-labelledby="about-title"
+        >
+          <h2 id="about-title">
+            About Insight Atlas
+          </h2>
         </section>
 
-        <section class="placeholder-section" id="sources">
-          <h2>Data Sources</h2>
+        <section
+          class="placeholder-section"
+          id="sources"
+          aria-labelledby="sources-title"
+        >
+          <h2 id="sources-title">
+            Data Sources
+          </h2>
         </section>
       </main>
     </div>
 
-    <script type="module" src="/src/main.js"></script>
+    <script
+      type="module"
+      src="/src/main.js"
+    ></script>
   </body>
 </html>
+
