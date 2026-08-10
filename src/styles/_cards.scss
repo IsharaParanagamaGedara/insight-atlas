@@ -7,6 +7,7 @@
   right: 64px;
   width: 330px;
   transform: translateY(-50%);
+  will-change: transform, opacity;
 }
 
 .story-queue__header {
@@ -40,6 +41,7 @@
   box-shadow: $shadow-soft;
   isolation: isolate;
   cursor: pointer;
+  will-change: transform, opacity;
   transition:
     transform $transition-medium,
     border-color $transition-medium,
@@ -57,6 +59,12 @@
   }
 }
 
+.queue-card[aria-disabled="true"] {
+  cursor: wait;
+  pointer-events: none;
+  opacity: 0.72;
+}
+
 .queue-card__image,
 .queue-card__overlay {
   position: absolute;
@@ -66,11 +74,14 @@
 .queue-card__image {
   z-index: -2;
   background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
+  will-change: transform;
   transition: transform $transition-slow;
 }
 
-.queue-card:hover .queue-card__image {
+.queue-card:hover .queue-card__image,
+.queue-card:focus-visible .queue-card__image {
   transform: scale(1.08);
 }
 
@@ -143,7 +154,8 @@
   }
 }
 
-.queue-card:hover .queue-card__action span {
+.queue-card:hover .queue-card__action span,
+.queue-card:focus-visible .queue-card__action span {
   transform: translate(3px, -3px);
 }
 
@@ -182,6 +194,7 @@
     overflow-x: auto;
     padding-bottom: 8px;
     scroll-snap-type: x mandatory;
+    overscroll-behavior-inline: contain;
     scrollbar-width: none;
   }
 
@@ -193,14 +206,6 @@
     flex: 0 0 260px;
     scroll-snap-align: start;
   }
-
-  .hero__content {
-    padding-bottom: 600px;
-  }
-
-  .hero__scroll-hint {
-    display: none;
-  }
 }
 
 @media (max-width: $breakpoint-mobile) {
@@ -210,15 +215,43 @@
     left: 20px;
   }
 
+  .story-queue__header {
+    margin-bottom: 10px;
+  }
+
   .queue-card {
     flex-basis: 235px;
   }
 
-  .hero__content {
-    padding-bottom: 570px;
+  .queue-card__content {
+    padding: 16px 18px;
   }
 
-  .story-queue__header {
-    margin-bottom: 10px;
+  .queue-card__title {
+    font-size: 18px;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .story-queue,
+  .queue-card,
+  .queue-card__image {
+    will-change: auto;
+  }
+
+  .queue-card:hover,
+  .queue-card:focus-visible {
+    transform: none;
+  }
+
+  .queue-card:hover .queue-card__image,
+  .queue-card:focus-visible .queue-card__image {
+    transform: none;
+  }
+
+  .queue-card:hover .queue-card__action span,
+  .queue-card:focus-visible .queue-card__action span {
+    transform: none;
+  }
+}
+
