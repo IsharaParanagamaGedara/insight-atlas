@@ -209,23 +209,24 @@
 
 .hero__side-label {
   position: absolute;
-  z-index: 5;
+  z-index: 8;
   top: 50%;
-  right: 34px;
+  right: 420px;
   color: rgba(255, 255, 255, 0.54);
   font-family: $font-mono;
   font-size: 10px;
   letter-spacing: 0.26em;
+  white-space: nowrap;
   text-transform: uppercase;
   transform: translateY(-50%) rotate(90deg);
   transform-origin: center;
-  will-change: opacity;
+  pointer-events: none;
 }
 
 .hero__scroll-hint {
   position: absolute;
   z-index: 5;
-  bottom: 34px;
+  bottom: 24px;
   left: $container-padding;
   display: flex;
   align-items: center;
@@ -269,14 +270,15 @@
 
 @media (max-width: $breakpoint-desktop) {
   .hero__content {
-    width: min(
-      640px,
-      calc(100% - 320px)
-    );
+    width: min(640px, calc(100% - 320px));
   }
 
   .hero__title {
     font-size: clamp(54px, 7vw, 88px);
+  }
+
+  .hero__side-label {
+    right: 350px;
   }
 }
 
