@@ -73,6 +73,7 @@
 
 .queue-card__image {
   z-index: -2;
+  background-color: $color-surface;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -254,4 +255,3 @@
     transform: none;
   }
 }
-

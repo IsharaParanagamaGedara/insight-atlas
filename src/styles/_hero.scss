@@ -24,6 +24,12 @@
 
 .hero__image {
   background-color: $color-background-soft;
+  background-image:
+    linear-gradient(
+      135deg,
+      $color-background-soft,
+      $color-surface
+    );
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -373,4 +379,3 @@
     left: 0;
   }
 }
-
