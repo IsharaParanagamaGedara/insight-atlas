@@ -14,9 +14,15 @@ import {
   preloadImages,
 } from "./utils/preloadImages.js";
 
+function prefersReducedMotion() {
+  return window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+}
+
 let currentStoryIndex = 0;
 let isAnimating = false;
-let isAutoPlaying = true;
+let isAutoPlaying = !prefersReducedMotion();
 let autoplayTimer = null;
 
 const AUTOPLAY_DELAY = 5000;
@@ -103,6 +109,7 @@ function setControlsDisabled(disabled) {
 
 function updateProgress() {
   const currentPosition = currentStoryIndex + 1;
+
   const progressPercentage =
     (currentPosition / stories.length) * 100;
 
@@ -118,6 +125,11 @@ function updateProgress() {
   elements.progressTrack.setAttribute(
     "aria-valuemax",
     String(stories.length),
+  );
+
+  elements.progressTrack.setAttribute(
+    "aria-valuetext",
+    `Story ${currentPosition} of ${stories.length}`,
   );
 
   animateProgressBar(progressPercentage);
