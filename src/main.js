@@ -10,6 +10,10 @@ import {
   setInitialAnimationState,
 } from "./animations.js";
 
+import {
+  preloadImages,
+} from "./utils/preloadImages.js";
+
 let currentStoryIndex = 0;
 let isAnimating = false;
 let isAutoPlaying = true;
@@ -522,9 +526,25 @@ async function initializeApplication() {
   }
 
   setInitialAnimationState();
-  renderStory(currentStoryIndex);
   updateAutoplayButton();
   attachEventListeners();
+
+  const imageSources = stories.map(
+    (story) => story.image,
+  );
+
+  const imageResult = await preloadImages(
+    imageSources,
+  );
+
+  if (imageResult.failed.length > 0) {
+    console.warn(
+      "Some images could not be loaded:",
+      imageResult.failed,
+    );
+  }
+
+  renderStory(currentStoryIndex);
 
   await playPageReveal();
 
