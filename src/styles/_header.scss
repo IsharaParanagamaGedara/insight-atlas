@@ -20,18 +20,25 @@
 }
 
 .brand__mark {
+  flex: 0 0 46px;
   width: 46px;
   height: 46px;
   border: 1px solid $color-border;
   border-radius: 15px;
+  overflow: hidden;
   display: grid;
   place-items: center;
   background: rgba(255, 255, 255, 0.08);
   box-shadow: $shadow-soft;
-  font-family: $font-mono;
-  font-size: 14px;
-  font-weight: 600;
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  img {
+    width: 46px;
+    height: 46px;
+    display: block;
+    object-fit: cover;
+  }
 }
 
 .brand__text {
@@ -100,6 +107,7 @@
   place-items: center;
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   transition:
     transform $transition-fast,
     background-color $transition-fast,
@@ -142,7 +150,14 @@
   }
 
   .brand__mark {
+    flex-basis: 42px;
     width: 42px;
     height: 42px;
+    border-radius: 13px;
+
+    img {
+      width: 42px;
+      height: 42px;
+    }
   }
 }

@@ -13,7 +13,67 @@
       content="Insight Atlas is an interactive platform for exploring global data stories."
     />
 
-    <title>Insight Atlas | Interactive Data Stories</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon-32x32.png"
+    />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon-16x16.png"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png"
+    />
+
+    <!--
+      Critical startup styles.
+      These prevent the project icon and page background
+      from briefly appearing unstyled before Vite loads SCSS.
+    -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        background-color: #07111f;
+      }
+
+      .brand__mark {
+        width: 46px;
+        height: 46px;
+        overflow: hidden;
+        flex: 0 0 46px;
+      }
+
+      .brand__mark img {
+        display: block;
+        width: 46px;
+        height: 46px;
+        object-fit: cover;
+      }
+
+      @media (max-width: 600px) {
+        .brand__mark {
+          width: 42px;
+          height: 42px;
+          flex-basis: 42px;
+        }
+
+        .brand__mark img {
+          width: 42px;
+          height: 42px;
+        }
+      }
+    </style>
+
+    <title>Insight Atlas</title>
   </head>
 
   <body>
@@ -28,7 +88,12 @@
             class="brand__mark"
             aria-hidden="true"
           >
-            IA
+            <img
+              src="/insight-atlas-icon.png"
+              alt=""
+              width="46"
+              height="46"
+            />
           </span>
 
           <span class="brand__text">
@@ -337,4 +402,3 @@
     ></script>
   </body>
 </html>
-
