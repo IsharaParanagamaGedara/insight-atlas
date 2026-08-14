@@ -1,0 +1,66 @@
+// --------------------------------------------------
+// Colours
+// --------------------------------------------------
+
+$color-background: #07111f;
+$color-background-soft: #0b1828;
+$color-surface: #102033;
+$color-surface-light: #172b42;
+
+$color-primary: #4dd7c8;
+$color-primary-dark: #2aa99d;
+$color-secondary: #70a5ff;
+
+$color-text: #f4f8fb;
+$color-text-soft: rgba(244, 248, 251, 0.82);
+$color-muted: #a8b6c7;
+
+$color-border: rgba(255, 255, 255, 0.16);
+$color-border-strong: rgba(255, 255, 255, 0.3);
+
+$color-overlay-dark: rgba(3, 9, 18, 0.92);
+$color-overlay-light: rgba(3, 9, 18, 0.24);
+
+// --------------------------------------------------
+// Typography
+// --------------------------------------------------
+
+$font-heading: "Space Grotesk", sans-serif;
+$font-body: "Inter", sans-serif;
+$font-mono: "IBM Plex Mono", monospace;
+
+// --------------------------------------------------
+// Layout
+// --------------------------------------------------
+
+$header-height: 96px;
+$container-padding: 64px;
+$content-max-width: 680px;
+
+// --------------------------------------------------
+// Borders and shadows
+// --------------------------------------------------
+
+$radius-small: 10px;
+$radius-medium: 18px;
+$radius-large: 28px;
+$radius-pill: 999px;
+
+$shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.25);
+$shadow-strong: 0 24px 70px rgba(0, 0, 0, 0.42);
+
+// --------------------------------------------------
+// Transitions
+// --------------------------------------------------
+
+$transition-fast: 180ms ease;
+$transition-medium: 320ms ease;
+$transition-slow: 600ms ease;
+
+// --------------------------------------------------
+// Breakpoints
+// --------------------------------------------------
+
+$breakpoint-desktop: 1200px;
+$breakpoint-tablet: 900px;
+$breakpoint-mobile: 600px;
